@@ -1,0 +1,7 @@
+PLAN:
+-Pull flight status info - get time of departure
+	-incorporate for late flights?
+-Pull security wait times
+	- different checkpoints for different flights?
+-Use current address to generate travel time to aiport
+	-Drive, transit, uber options?
