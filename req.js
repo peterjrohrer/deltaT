@@ -51,5 +51,6 @@ function handleTSATimes(res){
 getTSATimes("ATL", function(res){
 	var waitTimeMap = handleTSATimes(res)
 	console.log(waitTimeMap)
+	
 
 })
