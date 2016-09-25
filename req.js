@@ -58,17 +58,7 @@ function handleTSATimes(res){
 // 	document.getElementById("wait").innerHTML = waitTimeMap;
 
 // })
-document.getElementById("currentLocation").onclick = function() {
-	var x = document.getElementById("currentLocation");
-	function getLocation() {
-    	if (navigator.geolocation) {
-        	navigator.geolocation.getCurrentPosition(document.getElementById("address"));
-        	console.log(navigator.geolocation);
-    	} else {
-        	x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-}
+//---Main Times stuff
 document.getElementById("submit").onclick = function() {
 
 
@@ -201,7 +191,22 @@ function getFltInfo(fltnum, callback){
 	httpGetAsync(reqUrl, callback);
 
 }
+///----Location stuff
+document.getElementById("location").onclick = function() {
+	var x = document.getElementById("currentLocation");
+	function getLocation() {
+    	if (navigator.geolocation) {
+        	navigator.geolocation.getCurrentPosition(document.getElementById("address"));
+        	console.log(navigator.geolocation);
+    	} else {
+        	x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+}
+document.getElementById("location").onclick = function() {
+	return 1
 
+}
 function getTime(airport, callback){
 	//destination = airport+" airport";
 	destination = "ATL Airport"

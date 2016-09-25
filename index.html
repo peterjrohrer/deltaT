@@ -5,15 +5,16 @@
 	</head>
   <style>
     body {
-      color: #ff0000;
-      background-color: #eee;
+      color: #3A359B;
+      background-color: #D2D7D3;
     }
     h1 {
       text-align: center;
       letter-spacing: .1px;
-      text-decoration: underline;
+      font-style: italic;
     }
     h3 {
+      color: #D91E18;
       text-align: center;
     }
     h4 {
@@ -23,7 +24,7 @@
       text-align: center;
     }
     hr {
-      color: #ff0000;
+      color: #ffffff;
       line-height: 2px;
     }
     div {
@@ -39,8 +40,11 @@
     }
   </style>
 	<body>
-		<h1><span class="glyphicon glyphicon-plane"></span>  DeltaT <span class="glyphicon glyphicon-time"></span></h1>
-    <hr>
+		<div style="background-color: #D64541"> 
+      <h1><span class="glyphicon glyphicon-plane"></span>  DeltaT <span class="glyphicon glyphicon-time"></span></h1>
+    </div>
+    <br>
+    <br>
 		<h4>Delta (DL) Flight Number: <input type="text" id="fltnum" name="fltnum" maxlength="4" style="color: #003399; width: 50px;"><br> </h4>
     <h5>Current Time: <span id="time"></span></h5> 
   	<h5>Scheduled Departure Time: <span id="departureTime"></span></h5>
@@ -50,14 +54,18 @@
         
       </div>
   		<h4>Current Address: <input type="text" id="address" style="color: #003399; width: 200px; height: 100px;"><br></h4>
-        <button id="currentLocation" >Use my Current Location</button>
+        <button id="location" >Factor in Traffic</button>
   		<h4>Method of transportation to Airport?</h4>
       <div>
   		  <input type="radio" name="method" id="method" value="car"> Drive<br>
   		  <input type="radio" name="method" id="method" value="transit"> Public Transit<br>
   		  <!-- <input type="radio" name="method" value="uber"> Uber -->
       </div>
-      <br><hr><br><button id = "submit">Submit</button>
+      <br>
+      <br>
+      <button id = "submit">Submit</button>
+      <br>
+      <br>
       <h3>You should leave <span id="totalTime"></span> minutes before your flight departs, at <span id="leaveTime"></span></h3>
 
 		<script src="req.js"></script>
