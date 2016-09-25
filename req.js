@@ -109,17 +109,21 @@ document.getElementById("submit").onclick = function() {
 		totalTime = duration + waitTime + 60;
 		document.getElementById("totalTime").innerHTML = totalTime;
 		console.log(totalTime+"total");
-		leaveTime(departureTime,  totalTime);
+		leaveTime(totalTime);
 
 	})
 	// document.getElementById("wait").innerHTML = getTSATimes("ATL");
 	// console.log(fltnum);
 	
 }
-function leaveTime(departureTime, totalTime) {
-		d = new Date();
-		d = departureTime - totalTime;
-
+function leaveTime(totalTime) {
+	fltnum = document.getElementById("fltnum").value;
+	getFltInfo(fltnum, function(res){
+		var departureTime = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureLocalTimeScheduled;
+		d = Date.parse(departureTime);
+		//var d = new Date(+d);
+		tt = totalTime*60000;
+		t = new Date(d-tt);
 		if(t.getHours()>12) {
 			var h = t.getHours()-12;
 			var x = "PM";
@@ -132,10 +136,9 @@ function leaveTime(departureTime, totalTime) {
 		} else {
 			m = t.getMinutes();
 		}
-
-
-
 		document.getElementById("leaveTime").innerHTML = h+":"+m+" "+x;	
+	})
+		
 }
 
 function printFltTimes() {
@@ -156,7 +159,6 @@ function printFltTimes() {
 			m = t.getMinutes();
 		}
 		document.getElementById("departureTime").innerHTML = h+":"+m+" "+x;
-		console.log(departureTime);
 
 	})
 }
