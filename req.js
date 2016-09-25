@@ -22,7 +22,7 @@ function timeRangeToMinMax(timeRange){//e.g. 1-10 min
 }
 
 function handleTSATimes(res){
-	console.log(res)
+	//console.log(res)
 	res = JSON.parse(res)
 	var lines = res.WaitTimeResult;
 	var waitTimeMap = {}
@@ -58,7 +58,17 @@ function handleTSATimes(res){
 // 	document.getElementById("wait").innerHTML = waitTimeMap;
 
 // })
-
+document.getElementById("currentLocation").onclick = function() {
+	var x = document.getElementById("currentLocation");
+	function getLocation() {
+    	if (navigator.geolocation) {
+        	navigator.geolocation.getCurrentPosition(document.getElementById("address"));
+        	console.log(navigator.geolocation);
+    	} else {
+        	x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+}
 document.getElementById("submit").onclick = function() {
 
 
@@ -67,8 +77,8 @@ document.getElementById("submit").onclick = function() {
 	fltnum = document.getElementById("fltnum").value;
 
 	getFltInfo(fltnum, function(res){
-		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.arrivalAirportCode;
-			
+		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureAirportCode;
+		
 		getTSATimes(arrivalAirport, function(tsaTimes){
 			var waitTimeMap = handleTSATimes(tsaTimes)
 			console.log(waitTimeMap)
@@ -83,9 +93,9 @@ document.getElementById("submit").onclick = function() {
 
 			document.getElementById("waitTimes").innerHTML = output
 
-			getTime(document.getElementById('address').value || "711 techwood drive", arrivalAirport + " airport", "driving", function(e,r){
-				console.log(e,r)
-			})
+			// getTime(document.getElementById('address').value || "711 techwood drive", arrivalAirport + " airport", "driving", function(e,r){
+			// 	console.log(e,r)
+			// })
 
 
 		})
@@ -94,7 +104,15 @@ document.getElementById("submit").onclick = function() {
 	// console.log(fltnum);
 	
 }
-
+function printFltTimes() {
+	fltnum = document.getElementById("fltnum").value;
+	getFltInfo(fltnum, function(res){
+		var departureTime = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureLocalTimeScheduled;
+		console.log(departureTime);
+	})
+	document.getElementById("departureTime").innerHTML = departureTime;
+}
+printFltTimes();
 function waitObjectToString(waitObject){
 	return waitObject.checkpointData.longname + " has a projected wait of " + waitObject.waitTime 
 }
@@ -112,6 +130,19 @@ function getDate(res){
 	} 
 	return yyyy + "-" + mm + "-" + dd;
 }
+//print current time
+var d = new Date();
+if(d.getHours()>12) {
+	var h = d.getHours()-12;
+} else {
+	h = d.getHours();
+}
+if(d.getMinutes()<10) {
+	var m = "0"+d.getMinutes();
+} else {
+	m = d.getMinutes();
+}
+document.getElementById("time").innerHTML = h+":"+m;
 
 function getFltInfo(fltnum, callback){
 	var reqUrl = "https://demo30-test.apigee.net/v1/hack/status?flightNumber=" + fltnum +"&flightOriginDate=" + getDate() + "&apikey=" + apiKey;
@@ -121,7 +152,7 @@ function getFltInfo(fltnum, callback){
 
 
 
-function getTime(location, destination, mode, callback){
+// function getTime(location, destination, mode, callback){
 
-	httpGetAsync('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(location) + '&destination=' + encodeURI(destination) + /*'&key=' + googleDirectionKey + */ '&mode=' + mode + "&key=" + gmapsApiKey + "?", callback)
-}
+// 	httpGetAsync('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(location) + '&destination=' + encodeURI(destination) + /*'&key=' + googleDirectionKey + */ '&mode=' + mode + "&key=" + gmapsApiKey + "?", callback)
+// }
