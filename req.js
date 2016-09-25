@@ -11,7 +11,7 @@ function httpGetAsync(theUrl, callback){//from http://stackoverflow.com/a/403331
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+            callback("https://peterjrohrer.github.io/deltaT/");
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
