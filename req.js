@@ -78,7 +78,8 @@ document.getElementById("submit").onclick = function() {
 
 	getFltInfo(fltnum, function(res){
 		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureAirportCode;
-		
+		getTime(arrivalAirport);
+		printFltTimes();
 		getTSATimes(arrivalAirport, function(tsaTimes){
 			var waitTimeMap = handleTSATimes(tsaTimes)
 			console.log(waitTimeMap)
@@ -108,11 +109,23 @@ function printFltTimes() {
 	fltnum = document.getElementById("fltnum").value;
 	getFltInfo(fltnum, function(res){
 		var departureTime = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureLocalTimeScheduled;
+		var t = new Date(departureTime);
+		if(t.getHours()>12) {
+			var h = t.getHours()-12;
+		} else {
+			h = t.getHours();
+		}
+		if(t.getMinutes()<10) {
+			var m = "0"+t.getMinutes();
+		} else {
+			m = t.getMinutes();
+		}
+		document.getElementById("departureTime").innerHTML = h+":"+m;
 		console.log(departureTime);
+
 	})
-	document.getElementById("departureTime").innerHTML = departureTime;
 }
-printFltTimes();
+
 function waitObjectToString(waitObject){
 	return waitObject.checkpointData.longname + " has a projected wait of " + waitObject.waitTime 
 }
@@ -150,9 +163,10 @@ function getFltInfo(fltnum, callback){
 
 }
 
+function getTime(airport, callback){
+	//destination = airport+" airport";
+	destination = "ATL Airport"
+	mode = document.getElementById("method").value;
+	httpGetAsync('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(location) + '&destination=' + encodeURI(destination) + '&key=' + gmapsApiKey + '&mode=' + mode +  "?", callback);
 
-
-// function getTime(location, destination, mode, callback){
-
-// 	httpGetAsync('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(location) + '&destination=' + encodeURI(destination) + /*'&key=' + googleDirectionKey + */ '&mode=' + mode + "&key=" + gmapsApiKey + "?", callback)
-// }
+}

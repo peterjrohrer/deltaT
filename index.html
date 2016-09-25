@@ -11,33 +11,49 @@
       text-align: center;
       letter-spacing: .1px;
     }
+    h3 {
+      text-align: center;
+    }
     h4 {
-
+      text-align: center;
     }
     h5 {
-
+      text-align: center;
     }
     hr {
       color: #ff0000;
       line-height: 2px;
     }
+    div {
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+    }
+    button {
+      text-align: center;
+      margin: auto;
+      display: block;
+
+    }
   </style>
 	<body>
 		<h1>DeltaT</h1> <hr>
-		<h4>Delta (DL) Flight Number: <input type="text" id="fltnum" name="fltnum"><br> </h4>
-    <h5>Current Time: <span id="time"></span></h5>
+		<h4>Delta (DL) Flight Number: <input type="text" id="fltnum" name="fltnum" maxlength="4" style="color: #003399; width: 50px;"><br> </h4>
+    <h5>Current Time: <span id="time"></span></h5> 
   	<h5>Scheduled Departure Time: <span id="departureTime"></span></h5>
       
   		<h4>TSA Wait Time: <output id="airport"></output></h4>
       <div id="waitTimes">
         
       </div>
-  		<h4>Current Address: <input type="text" id="address"><br></h4>
-        <button id="currentLocation">Use my Current Location</button>
+  		<h4>Current Address: <input type="text" id="address" style="color: #003399; width: 200px; height: 100px;"><br></h4>
+        <button id="currentLocation" >Use my Current Location</button>
   		<h4>Method of transportation to Airport?</h4>
-  		<input type="radio" name="method" value="car"> Drive<br>
-  		<input type="radio" name="method" value="transit"> Public Transit<br>
-  		<input type="radio" name="method" value="uber"> Uber
+      <div>
+  		  <input type="radio" name="method" id="method" value="car"> Drive<br>
+  		  <input type="radio" name="method" id="method" value="transit"> Public Transit<br>
+  		  <!-- <input type="radio" name="method" value="uber"> Uber -->
+      </div>
       <br><hr><br><button id = "submit">Submit</button>
       <h3>You should leave <span id="totalTime"></span> minutes before your flight departs, at <span id="leaveTime"></span></h3>
 
