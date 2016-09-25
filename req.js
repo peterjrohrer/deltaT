@@ -48,19 +48,51 @@ function handleTSATimes(res){
 	return waitTimeMap
 }
 
-getTSATimes("ATL", function(res){
-	var waitTimeMap = handleTSATimes(res)
-	console.log(waitTimeMap)
-	document.getElementById("wait").innerHTML = waitTimeMap;
 
-})
+
+// getTSATimes("ATL", function(res){
+// 	var waitTimeMap = handleTSATimes(res)
+
+// 	console.log(waitTimeMap)
+// 	document.getElementById("wait").innerHTML = waitTimeMap;
+
+// })
 
 document.getElementById("submit").onclick = function() {
-	var fltnum = document.getElementById("fltnum").value;
-	document.getElementById("wait").innerHTML = getTSATimes("ATL");
-	console.log(fltnum);
+
+
+
+
+	fltnum = document.getElementById("fltnum").value;
+
+	getFltInfo(fltnum, function(res){
+		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.arrivalAirportCode;
+
+		getTSATimes(arrivalAirport, function(tsaTimes){
+			var waitTimeMap = handleTSATimes(tsaTimes)
+			console.log(waitTimeMap)
+
+			var output = "<ul>"
+
+			for(waitObjectKey in waitTimeMap){//just assume there's no CSS injection taking place here
+				output += "<li>" + waitObjectToString(waitTimeMap[waitObjectKey]) + "</li>"
+			}
+
+			output += "</ul>"
+
+			document.getElementById("waitTimes").innerHTML = output
+
+
+		})
+	})
+	// document.getElementById("wait").innerHTML = getTSATimes("ATL");
+	// console.log(fltnum);
+	
 }
 
+function waitObjectToString(waitObject){
+	return waitObject.checkpointData.longname + " has a projected wait of " + waitObject.waitTime 
+}
 
 function getDate(res){
 	var today = new Date();
@@ -76,8 +108,8 @@ function getDate(res){
 	return yyyy + "-" + mm + "-" + dd;
 }
 
-function getFltNum(airport, callback){
-	var reqUrl = "http://demo30-test.apigee.net/v1/hack/status?flightNumber=" + fltnum +"&flightOriginDate=" + getDate() + "&apikey=" + apiKey;
+function getFltInfo(fltnum, callback){
+	var reqUrl = "https://demo30-test.apigee.net/v1/hack/status?flightNumber=" + fltnum +"&flightOriginDate=" + getDate() + "&apikey=" + apiKey;
 	httpGetAsync(reqUrl, callback);
 
 }
@@ -86,9 +118,9 @@ function getAirport(fltnum){
 	console.log(res)
 	res = JSON.parse(res)
 
-	"flightStatusResponse":{
-	"statusResponse":{
-	"flightStatusTO":{
-	"flightStatusLegTOList":{
-	"departureAirportCode":"MYR"
+	// "flightStatusResponse":{
+	// "statusResponse":{
+	// "flightStatusTO":{
+	// "flightStatusLegTOList":{
+	// "departureAirportCode":"MYR"
 }
