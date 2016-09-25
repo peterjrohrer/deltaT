@@ -1,4 +1,5 @@
 var apiKey = "dGgi3KrBpRVXBC6s76pF2fUucTde16bH";
+var gmapsApiKey = "AIzaSyAcZBN476sRwEC3O98ED4Hr1IZTq2jptR8";
 
 function getTSATimes(airport, callback){
 	var reqUrl = "http://demo30-test.apigee.net/v1/hack/tsa?airport=" + airport + "&apikey=" + apiKey;
@@ -82,6 +83,10 @@ document.getElementById("submit").onclick = function() {
 
 			document.getElementById("waitTimes").innerHTML = output
 
+			getTime(/*document.getElementById('address').value || */"711 techwood drive", arrivalAirport + " airport", "driving", function(e,r){
+				console.log(e,r)
+			})
+
 
 		})
 	})
@@ -114,32 +119,9 @@ function getFltInfo(fltnum, callback){
 
 }
 
-function getAirport(fltnum){
-	console.log(res)
-	res = JSON.parse(res)
 
-	// "flightStatusResponse":{
-	// "statusResponse":{
-	// "flightStatusTO":{
-	// "flightStatusLegTOList":{
-	// "departureAirportCode":"MYR"
-}
 
-address = "700 techwood drive atlanta"
-destination = "ATL" + "airport"
-mode = "driving"
 function getTime(location, destination, mode, callback){
 
-	https.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(address) + '&destination=' + encodeURI(destination) + /*'&key=' + googleDirectionKey + */ '&mode=' + mode , function(res){
-
-		// var body = ""
-		// res.on("data", function(data){
-		// 	body += data;
-		// })
-
-		// res.on("end", function(){
-		// 	callback(JSON.parse(body))
-		// })
-
-	})
+	httpGetAsync('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(location) + '&destination=' + encodeURI(destination) + /*'&key=' + googleDirectionKey + */ '&mode=' + mode + "&key=" + gmapsApiKey + "?", callback)
 }
