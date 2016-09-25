@@ -2,7 +2,7 @@ var apiKey = "c2kg7EGqKUAunjI3JPIaKXOGVhf5DEAZ";
 var gmapsApiKey = "AIzaSyAcZBN476sRwEC3O98ED4Hr1IZTq2jptR8";
 
 function getTSATimes(airport, callback){
-	var reqUrl = "http://demo30-test.apigee.net/v1/hack/tsa?airport=" + airport + "&apikey=" + apiKey;
+	var reqUrl = "https://demo30-test.apigee.net/v1/hack/tsa?airport=" + airport + "&apikey=" + apiKey;
 	httpGetAsync(reqUrl, callback);
 
 }
