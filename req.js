@@ -78,7 +78,10 @@ document.getElementById("submit").onclick = function() {
 
 	getFltInfo(fltnum, function(res){
 		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureAirportCode;
-		getTime(arrivalAirport);
+		document.getElementById("airport").innerHTML = " at "+arrivalAirport+":";
+		//var duration = getTime(arrivalAirport, "www.google.com");
+		//console.log(duration);
+		//document.getElementById(duration).innerHTML = duration;
 		printFltTimes();
 		getTSATimes(arrivalAirport, function(tsaTimes){
 			var waitTimeMap = handleTSATimes(tsaTimes)
@@ -94,12 +97,19 @@ document.getElementById("submit").onclick = function() {
 
 			document.getElementById("waitTimes").innerHTML = output
 
+
 			// getTime(document.getElementById('address').value || "711 techwood drive", arrivalAirport + " airport", "driving", function(e,r){
 			// 	console.log(e,r)
 			// })
 
 
 		})
+		duration = 36;
+		waitTime = 20;
+		totalTime = duration + waitTime + 60;
+		document.getElementById("totalTime").innerHTML = totalTime;
+		console.log(totalTime);
+
 	})
 	// document.getElementById("wait").innerHTML = getTSATimes("ATL");
 	// console.log(fltnum);
@@ -112,15 +122,17 @@ function printFltTimes() {
 		var t = new Date(departureTime);
 		if(t.getHours()>12) {
 			var h = t.getHours()-12;
+			var x = "PM";
 		} else {
 			h = t.getHours();
+			x = "AM";
 		}
 		if(t.getMinutes()<10) {
 			var m = "0"+t.getMinutes();
 		} else {
 			m = t.getMinutes();
 		}
-		document.getElementById("departureTime").innerHTML = h+":"+m;
+		document.getElementById("departureTime").innerHTML = h+":"+m+" "+x;
 		console.log(departureTime);
 
 	})
@@ -147,15 +159,17 @@ function getDate(res){
 var d = new Date();
 if(d.getHours()>12) {
 	var h = d.getHours()-12;
+	var x = "PM";
 } else {
 	h = d.getHours();
+	x = "AM";
 }
 if(d.getMinutes()<10) {
 	var m = "0"+d.getMinutes();
 } else {
 	m = d.getMinutes();
 }
-document.getElementById("time").innerHTML = h+":"+m;
+document.getElementById("time").innerHTML = h+":"+m+" "+x;
 
 function getFltInfo(fltnum, callback){
 	var reqUrl = "https://demo30-test.apigee.net/v1/hack/status?flightNumber=" + fltnum +"&flightOriginDate=" + getDate() + "&apikey=" + apiKey;
