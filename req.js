@@ -83,7 +83,7 @@ document.getElementById("submit").onclick = function() {
 
 			document.getElementById("waitTimes").innerHTML = output
 
-			getTime(/*document.getElementById('address').value || */"711 techwood drive", arrivalAirport + " airport", "driving", function(e,r){
+			getTime(document.getElementById('address').value || "711 techwood drive", arrivalAirport + " airport", "driving", function(e,r){
 				console.log(e,r)
 			})
 
