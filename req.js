@@ -77,7 +77,7 @@ document.getElementById("submit").onclick = function() {
 			var waitTimeMap = handleTSATimes(tsaTimes)
 			console.log(waitTimeMap)
 
-			var output = "<ul>"
+			var output = "<ul style='list-style-type:none'>"
 
 			for(waitObjectKey in waitTimeMap){//just assume there's no CSS injection taking place here
 				output += "<li>" + waitObjectToString(waitTimeMap[waitObjectKey]) + "</li>"
