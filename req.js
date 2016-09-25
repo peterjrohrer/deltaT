@@ -51,6 +51,44 @@ function handleTSATimes(res){
 getTSATimes("ATL", function(res){
 	var waitTimeMap = handleTSATimes(res)
 	console.log(waitTimeMap)
-	
+	document.getElementById("wait").innerHTML = waitTimeMap;
 
 })
+
+document.getElementById("submit").onclick = function() {
+	var fltnum = document.getElementById("fltnum").value;
+	document.getElementById("wait").innerHTML = getTSATimes("ATL");
+	console.log(fltnum);
+}
+
+
+function getDate(res){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	if(dd<10) {
+    	dd='0'+dd
+	} 
+	if(mm<10) {
+    	mm='0'+mm
+	} 
+	return yyyy + "-" + mm + "-" + dd;
+}
+
+function getFltNum(airport, callback){
+	var reqUrl = "http://demo30-test.apigee.net/v1/hack/status?flightNumber=" + fltnum +"&flightOriginDate=" + getDate() + "&apikey=" + apiKey;
+	httpGetAsync(reqUrl, callback);
+
+}
+
+function getAirport(fltnum){
+	console.log(res)
+	res = JSON.parse(res)
+
+	"flightStatusResponse":{
+	"statusResponse":{
+	"flightStatusTO":{
+	"flightStatusLegTOList":{
+	"departureAirportCode":"MYR"
+}

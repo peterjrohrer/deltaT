@@ -3,10 +3,15 @@
 	</head>
 	<body>
 		<h1>DeltaT</h1>
-		<h4>Delta (DL) Flight Number: <input type="text" name="fltnum"><br> </h4>
-  		<button id = "fltnum">Submit</button>
+		<h4>Delta (DL) Flight Number: <input type="text" id="fltnum" name="fltnum"><br> </h4>
+  		<button id = "submit">Submit</button>
+  		<!-- show some information about flight-->
   		<h4>TSA Wait Time: <span id="wait">Loading...</span></h4>
   		<h4>Current Address: <input type="text" name="address"><br></h4>
+  		<h3>Method of transportation to Airport?</h3>
+  		<input type="radio" name="method" value="car"> Drive<br>
+  		<input type="radio" name="method" value="transit"> Public Transit<br>
+  		<input type="radio" name="method" value="uber"> Uber
 		<script src="req.js"></script>
 	</body>
 
