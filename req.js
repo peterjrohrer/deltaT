@@ -67,7 +67,7 @@ document.getElementById("submit").onclick = function() {
 
 	getFltInfo(fltnum, function(res){
 		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.arrivalAirportCode;
-
+			
 		getTSATimes(arrivalAirport, function(tsaTimes){
 			var waitTimeMap = handleTSATimes(tsaTimes)
 			console.log(waitTimeMap)
@@ -123,4 +123,23 @@ function getAirport(fltnum){
 	// "flightStatusTO":{
 	// "flightStatusLegTOList":{
 	// "departureAirportCode":"MYR"
+}
+
+address = "700 techwood drive atlanta"
+destination = "ATL" + "airport"
+mode = "driving"
+function getTime(location, destination, mode, callback){
+
+	https.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + encodeURI(address) + '&destination=' + encodeURI(destination) + /*'&key=' + googleDirectionKey + */ '&mode=' + mode , function(res){
+
+		// var body = ""
+		// res.on("data", function(data){
+		// 	body += data;
+		// })
+
+		// res.on("end", function(){
+		// 	callback(JSON.parse(body))
+		// })
+
+	})
 }
