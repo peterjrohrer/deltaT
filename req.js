@@ -1,4 +1,4 @@
-var apiKey = "dGgi3KrBpRVXBC6s76pF2fUucTde16bH";
+var apiKey = "c2kg7EGqKUAunjI3JPIaKXOGVhf5DEAZ";
 var gmapsApiKey = "AIzaSyAcZBN476sRwEC3O98ED4Hr1IZTq2jptR8";
 
 function getTSATimes(airport, callback){
@@ -11,7 +11,7 @@ function httpGetAsync(theUrl, callback){//from http://stackoverflow.com/a/403331
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback("https://peterjrohrer.github.io/deltaT/");
+            callback(xmlHttp.responseText);
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
