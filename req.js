@@ -32,9 +32,8 @@ function handleTSATimes(res){
 
 		if(!waitTimeMap[line.checkpointID]){
 			waitTimeMap[line.checkpointID] = line
-
+			
 			line.waitTimeRange = timeRangeToMinMax(line.waitTime)
-
 		}
 	}
 
@@ -42,7 +41,6 @@ function handleTSATimes(res){
 
 	for(var i = 0; i < checkpoints.length; i++){
 		var checkpoint = checkpoints[i]
-
 		waitTimeMap[checkpoint.id].checkpointData = checkpoint
 	}
 
@@ -67,13 +65,13 @@ document.getElementById("submit").onclick = function() {
 	fltnum = document.getElementById("fltnum").value;
 
 	getFltInfo(fltnum, function(res){
-		var arrivalAirport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureAirportCode;
-		document.getElementById("airport").innerHTML = " at "+arrivalAirport+":";
+		var airport = JSON.parse(res).flightStatusResponse.statusResponse.flightStatusTO.flightStatusLegTOList.departureAirportCode;
+		document.getElementById("airport").innerHTML = " at "+airport+":";
 		//var duration = getTime(arrivalAirport, "www.google.com");
 		//console.log(duration);
 		//document.getElementById(duration).innerHTML = duration;
 		printFltTimes();
-		getTSATimes(arrivalAirport, function(tsaTimes){
+		getTSATimes(airport, function(tsaTimes){
 			var waitTimeMap = handleTSATimes(tsaTimes)
 			console.log(waitTimeMap)
 
